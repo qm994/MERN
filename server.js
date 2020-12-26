@@ -4,8 +4,11 @@ const user = require('./routes/api/user');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// connect to db 
+// Connect to DB
 connectDB();
+
+// Init Middleware
+app.use(express.json({ extended: false }));
 
 // use the routes
 app.use('/api/users', user);

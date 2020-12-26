@@ -1,3 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://qingyuan:zhang199711@devconnector.z9fyl.mongodb.net/<dbname>?retryWrites=true&w=majority"
+    "mongoURI": "mongodb+srv://qingyuan:zhang199711@devconnector.z9fyl.mongodb.net/MERN_prod?retryWrites=true&w=majority",
+    "jwtsecret": "mysecrettoken"
 }
