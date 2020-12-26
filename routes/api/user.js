@@ -74,8 +74,7 @@ router.post(
             // Return jsonwebtoken, which will be used immediatly for new user login after regiter
             const payload = {
                 user: {
-                    id: user.id,
-
+                    id: user.id
                 }
             };
             jwt.sign(
@@ -85,7 +84,7 @@ router.post(
                 (error, token) => {
                     if(error) {
                         throw error;
-                    };
+                    }
                     res.json({ token })
                 }
             );
