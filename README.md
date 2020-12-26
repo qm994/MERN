@@ -3,6 +3,10 @@ A full stack application developed with backend Mongodb, node.js and frontend wi
 
 ## Models
 
+User(schema): https://github.com/qm994/MERN/blob/master/models/User.js#L3
+
+Profile(schema): https://github.com/qm994/MERN/blob/master/models/Profile.js#L3
+
 
 ## Routes
 
