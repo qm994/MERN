@@ -318,7 +318,7 @@ router.delete(
                 .indexOf(req.params.edu_id);
             // If no such education
             if(removedIdx == -1){
-                res.status(400).json({
+                return res.status(400).json({
                     msg: "education Not Found"
                 })
             };
