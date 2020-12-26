@@ -19,7 +19,8 @@ A full stack application developed with backend Mongodb, node.js and frontend wi
   {
     "eamil",
     "password"
-  }
+  } <br />
+  
 (2) `api/auth`: GET(get the user information, return `all the fields in a user document except password`)
   
   header: {
