@@ -7,11 +7,6 @@ const auth = require('../../middleware/auth');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
-// @route   GET api/profile
-// @desc    Test route
-// @access  Public
-router.get('/', (req, res) => res.send('This the home route of the profile!'));
-
 // @route   GET api/profile/me
 // @desc    Get the profile of the user
 // @access  Private
@@ -37,7 +32,6 @@ router.get('/me', auth, async (req, res) => {
 // @route   POST api/profile
 // @desc    Create/Update a user profile
 // @access  Private
-
 router.post(
     '/',
     [
@@ -120,6 +114,19 @@ router.post(
             res.sendStatus(500)
         }
         res.status(200).send('Saved the profile!')
-})
+});
+
+// @route   GET api/profile
+// @desc    Get all profiles
+// @access  Public
+router.get('/', async (req, res) => {
+    try {
+        let profiles = await Profile.find().populate('user', ['name', 'avatar']);
+        res.status(200).json(profiles)
+    } catch (e) {
+        console.error(e.message);
+        res.sendStatus(500);
+    }
+});
 
 module.exports = router;
