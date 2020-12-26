@@ -246,6 +246,89 @@ router.delete(
             console.error(error);
             res.sendStatus(500)
         }
-    })
+});
+
+
+// @route   PUT api/profile/education
+// @desc    Add profile education
+// @access  Private
+router.put(
+    '/education',
+    auth, 
+    [
+        check('school', 'School is required!').not().isEmpty(),
+        check('degree', 'Degree is required!').not().isEmpty(),
+        check('fieldofstudy', 'Major is required!').not().isEmpty(),
+        check("from", 'Start date is required!').not().isEmpty()
+
+    ],
+    async (req, res) => {
+        const errors = validationResult(req);
+        if(!errors.isEmpty()) {
+            return res.status(400).json({
+                errors: errors.array()
+            })
+        };
+
+        const {
+            school,
+            degree,
+            fieldofstudy,
+            from,
+            to,
+            current,
+            description
+        } = req.body;
+
+        // Build new experience object
+        const newEdu = {
+            school,
+            degree,
+            fieldofstudy,
+            from,
+            to,
+            current,
+            description
+        };
+        try {
+            let profile = await Profile.findOne({ user: req.user.id });
+            profile.education.unshift(newEdu);
+            await profile.save();
+            return res.json(profile);
+        } catch (e) {
+            console.error(e);
+            res.sendStatus(500);
+        }
+});
+
+// @route   DELETE api/profile/education/:edu_id
+// @desc    Delete education from profile
+// @access  Private
+
+router.delete(
+    "/education/:edu_id",
+    auth,
+    async (req, res) => {
+        try {
+            let profile = await Profile.findOne({ user: req.user.id });
+            // Get expected remove education
+            const removedIdx = profile
+                .education
+                .map(item => item.id)
+                .indexOf(req.params.edu_id);
+            // If no such education
+            if(removedIdx == -1){
+                res.status(400).json({
+                    msg: "education Not Found"
+                })
+            };
+            profile.education.splice(removedIdx, 1);
+            await profile.save();
+            return res.json(profile)
+        } catch (error) {
+            console.error(error);
+            res.sendStatus(500)
+        }
+});
 
 module.exports = router;
