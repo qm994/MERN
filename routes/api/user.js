@@ -15,7 +15,7 @@ const User = require('../../models/User');
 router.get('/', (req, res) => res.send('This the home route of the user!'));
 
 // @route   POST api/users
-// @desc    Register user
+// @desc    Register a new user
 // @access  Public
 router.post(
     '/',
@@ -44,7 +44,7 @@ router.post(
            return res.status(400).json({
                errors: errors.array()
            })
-        }
+        };
 
         const { name, email, password } = req.body;
 
