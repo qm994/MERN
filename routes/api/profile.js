@@ -1,5 +1,7 @@
 const { compare } = require('bcryptjs');
 const express = require('express');
+const request = require('request');
+const config = require("config");
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
@@ -330,5 +332,34 @@ router.delete(
             res.sendStatus(500)
         }
 });
+
+// @route   GET api/profile/github/:username
+// @desc    Get user repos from github
+// @access  Public
+
+router.get("/github/:username", (req, res) => {
+    try {
+        const options = {
+            uri: encodeURI(
+                `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc`
+            ),
+            method: "GET",
+            headers: {
+                'user-agent': 'node.js',
+                Authorization: `token ${config.get('githubToken')}`
+            }
+        };
+        request(options, (error, response, body) => {
+            if(error) console.error(error);
+            if(response.statusCode !== 200) {
+                return res.status(400).json({ msg: "No Github profile found" })
+            };
+            return res.json(JSON.parse(body));
+        });
+    } catch (e) {
+        console.error(e);
+        return res.sendStatus(500);
+    }
+})
 
 module.exports = router;
