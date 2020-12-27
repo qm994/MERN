@@ -60,6 +60,34 @@ router.get(
             res.sendStatus(500);
         }
     }
-)
+);
+
+// @route   GET api/posts/:id
+// @desc    GET post by id
+// @access  Private
+router.get(
+    "/:id",
+    auth,
+    async (req, res) => {
+        try {
+            const post = await Post.findById(req.params.id);
+            if(!post) {
+                return res.status(404).json({
+                    msg: "No such post!"
+                })
+            };
+            return res.json(post);
+        } catch (e) {
+            console.error(e);
+            if(e.kind === 'ObjectId') {
+                return res.status(404).json({
+                    msg: "No such post!"
+                })
+            };
+            res.sendStatus(500);
+        }
+    }
+);
+
 
 module.exports = router;
