@@ -89,5 +89,41 @@ router.get(
     }
 );
 
+// @route   DELETE api/posts/:id
+// @desc    Delete a post by ID
+// @access  Private
+router.delete(
+    "/:id",
+    auth,
+    async (req, res) => {
+        try {
+            const post = await Post.findById(req.params.id);
+            // Check if post existed
+            if(!post) {
+                return res.status(404).json({
+                    msg: "No such post!"
+                })
+            };
+            // Check if the people who ready to delete the post if he is
+            // the owner of the post
+            if(req.user.id !== post.user.toString()) {
+                return res.status(403).json({
+                    msg: "Current user doesnt own this post"
+                })
+            };
+            await Post.findByIdAndRemove(post.id)
+            return res.send('Post Deleted!');
+        } catch (e) {
+            console.error(e);
+            if(e.kind === 'ObjectId') {
+                return res.status(404).json({
+                    msg: "No such post!"
+                })
+            };
+            res.sendStatus(500);
+        }
+    }
+);
+
 
 module.exports = router;
