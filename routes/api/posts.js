@@ -43,6 +43,23 @@ router.post(
             console.error(e);
             res.sendStatus(500);
         }
-    });
+});
+
+// @route   GET api/posts
+// @desc    GET all posts
+// @access  Private
+router.get(
+    "/",
+    auth,
+    async (req, res) => {
+        try {
+            const posts = await Post.find().sort({ date: -1 });
+            return res.json(posts);
+        } catch (e) {
+            console.error(e);
+            res.sendStatus(500);
+        }
+    }
+)
 
 module.exports = router;
