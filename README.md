@@ -7,6 +7,8 @@ User(schema): https://github.com/qm994/MERN/blob/master/models/User.js#L3
 
 Profile(schema): https://github.com/qm994/MERN/blob/master/models/Profile.js#L3
 
+Post(schema): https://github.com/qm994/MERN/blob/master/models/Post.js#L5
+
 
 ## Routes
 
@@ -81,3 +83,64 @@ Profile(schema): https://github.com/qm994/MERN/blob/master/models/Profile.js#L3
   }
   
 (10) `api/profile/github/:username`: GET(get a user's github repo information)
+
+
+### post
+
+(1) `api/posts`: PUT(create a post)
+   
+   header: {
+    x-auth-token: <Your token>
+  }
+  
+   body: {
+    'text': String
+  }
+
+(2) `api/posts`: GET(get all the posts)
+  
+  header: {
+    x-auth-token: <Your token>
+  }
+
+(3) `api/posts/:id`: GET(get the post by ID)
+  
+  header: {
+    x-auth-token: <Your token>
+  }
+  
+(4) `api/posts/:id`: DELETE(delete the post by ID)
+
+  header: {
+    x-auth-token: <Your token>
+  }
+  
+(5) `api/posts/like/:id`: PUT(like a post):
+
+  header: {
+    x-auth-token: <Your token>
+  }
+  
+(6) `api/posts/unlike/:id`: PUT(unlike a post):
+
+  header: {
+    x-auth-token: <Your token>
+  }
+  
+(7) `api/posts/comment/:id`: POST(add a comment to the post)
+
+   header: {
+    x-auth-token: <Your token>
+  }
+  
+   body: {
+    'text': String
+  }
+
+(8) `api/posts/comment/:id`: DELETE(delete a comment)
+
+  header: {
+    x-auth-token: <Your token>
+  }
+
+    
