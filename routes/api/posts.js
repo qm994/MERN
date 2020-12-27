@@ -128,7 +128,6 @@ router.delete(
 // @route   PUT api/posts/like/:id
 // @desc    Like a post
 // @access  Private
-
 router.put(
     '/like/:id',
     auth,
@@ -136,13 +135,43 @@ router.put(
         try {
             const post = await Post.findById(req.params.id);
             // Check if a post already be liked by the same user
-            console.log(post.likes.filter(like => like.user.toString() === req.user.id))
             if(post.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
                 return res.status(403).json({
                     msg: "Post already liked!"
                 })
             } ;
             post.likes.unshift({ user: req.user.id });
+            await post.save();
+            return res.status(200).json(post.likes);
+        } catch (e) {
+            console.error(e);
+            res.sendStatus(500);
+        }
+    }
+);
+
+// @route   PUT api/posts/unlike/:id
+// @desc    Unlike a post
+// @access  Private
+router.put(
+    '/unlike/:id',
+    auth,
+    async (req, res) => {
+        try {
+            const post = await Post.findById(req.params.id);
+            // Check if a post already be liked because we cannot unlike a post which
+            // isnt be liked
+            if(post.likes.filter(like => like.user.toString() === req.user.id).length == 0) {
+                return res.status(403).json({
+                    msg: "Post hasnt been liked by the user!"
+                })
+            } ;
+            const removePostUserIdx = post
+                .likes
+                .map(like => like.user.toString())
+                .indexOf(req.user.id);
+
+            post.likes.splice(removePostUserIdx, 1);
             await post.save();
             return res.status(200).json(post.likes);
         } catch (e) {
