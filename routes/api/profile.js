@@ -111,6 +111,7 @@ router.post(
             profile = new Profile(profileFields);
             await profile.save();
             res.json(profile);
+            
         } catch (e) {
             console.error(e);
             res.sendStatus(500)
