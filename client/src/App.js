@@ -1,7 +1,11 @@
-import './App.css';
 import React, { Fragment } from 'react';
 import Landing from '../src/components/layout/Landing';
 import Navbar from '../src/components/layout/Navbar';
+import Login from '../src/components/auth/Login';
+import Register from '../src/components/auth/Register';
+
+import './App.css';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,11 +14,18 @@ import {
 
 const App = () => {
   return (
-    <Fragment>
-      <Landing />
-      <Navbar />
-      <h1>App</h1>
-    </Fragment>
+    <Router>
+      <Fragment>
+        <Navbar />
+        <Route exact path='/' component={Landing} />
+        <section className="container">
+          <Switch>
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/register' component={Register} />
+          </Switch>
+        </section>
+      </Fragment>
+    </Router>
   );
 }
 
