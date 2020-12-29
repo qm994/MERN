@@ -7,14 +7,14 @@ import Register from '../src/components/auth/Register';
 import './App.css';
 
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Switch,
   Route,
 } from "react-router-dom";
 
 const App = () => {
   return (
-    <Router>
+    <BrowserRouter>
       <Fragment>
         <Navbar />
         <Route exact path='/' component={Landing} />
@@ -25,7 +25,7 @@ const App = () => {
           </Switch>
         </section>
       </Fragment>
-    </Router>
+    </BrowserRouter>
   );
 }
 
