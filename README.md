@@ -1,6 +1,12 @@
 # MERN
 A full stack application developed with backend Mongodb, node.js and frontend with React, Redux etc
 
+
+## TODO
+
+@: Add logout correlate action/type to remove user and its token;
+@: Dynamically show login, signin, logout in the NavBar
+
 ## Models
 
 User(schema): https://github.com/qm994/MERN/blob/master/models/User.js#L3
