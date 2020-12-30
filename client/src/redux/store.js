@@ -10,5 +10,6 @@ const intialState = {};
 export const store = createStore(
     rootReducer,
     intialState,
-    applyMiddleware(...middlewares));
+    composeWithDevTools(applyMiddleware(...middlewares))
+);
 

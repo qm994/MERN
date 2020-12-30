@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import alert from './alert/alert.reducer';
+import alertReducer from './alert/alert.reducer';
 
 const rootReducer = combineReducers({
     alert: alertReducer
