@@ -9,10 +9,6 @@ const { check, validationResult } = require('express-validator');
 // Load models
 const User = require('../../models/User');
 
-// @route   GET api/users
-// @desc    Test route
-// @access  Public
-router.get('/', (req, res) => res.send('This the home route of the user!'));
 
 // @route   POST api/users
 // @desc    Register a new user
