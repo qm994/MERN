@@ -22,9 +22,9 @@ export const loadUser = () => {
             dispatch({
                 type: AuthActionTypes.AUTH_ERROR
             });
-            error.response.data.errors.forEach(
-                error => dispatch(setAlert(error.msg, 'danger', 3000))
-            );
+            
+            dispatch(setAlert(error.response.data.msg, 'danger', 3000))
+
         }
     }
 }
@@ -33,7 +33,7 @@ export const loadUser = () => {
 // Register user
 // const register = ({ name, email, password }) => dispatch => {
 // }
-const register = ({ name, email, password }) => {
+export const register = ({ name, email, password }) => {
     return async (dispatch) => {
         const config = {
             headers: {
@@ -44,7 +44,7 @@ const register = ({ name, email, password }) => {
         try {
             // register
             const res = await axios.post('api/users', body, config);
-            
+
             dispatch({
                 type: AuthActionTypes.REGISTER_SUCCESS,
                 payload: res.data
@@ -67,4 +67,40 @@ const register = ({ name, email, password }) => {
     };
 };
 
-export default register;
+// Login user
+
+export const login = (email, password) => {
+    return async (dispatch) => {
+        const config = {
+            headers: {
+                'Content-Type': "application/json"
+            }
+        };
+        const body = JSON.stringify({ email, password });
+        try {
+            // login
+            const res = await axios.post('api/auth', body, config);
+
+            dispatch({
+                type: AuthActionTypes.LOGIN_SUCCESS,
+                payload: res.data
+            });
+            
+            dispatch(loadUser());
+            dispatch(setAlert('Login success!', 'success', 3000));
+        } catch (error) {
+            const errors = error.response.data.errors;
+            if(errors) {
+                errors.forEach(
+                    error => {
+                        dispatch(setAlert(error.msg, 'danger', 3000));
+                    }
+                );
+            };
+            dispatch({
+                type: AuthActionTypes.LOGIN_FAIL
+            });
+        }
+    };
+};
+

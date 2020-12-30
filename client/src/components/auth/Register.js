@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
 
 import { setAlert } from '../../redux/alert/alert.actions';
-import register from '../../redux/auth/auth.actions';
+import { register } from '../../redux/auth/auth.actions';
 
-const Register = ({ setAlert, register, ...otherProps }) => {
+const Register = ({ setAlert, register, isAuthenticated }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -31,6 +31,11 @@ const Register = ({ setAlert, register, ...otherProps }) => {
         } else {
             register({ name, email, password });
         }
+    };
+
+    // if login redirect
+    if(isAuthenticated) {
+        return <Redirect to='/dashboard' />
     };
 
     return (
@@ -94,12 +99,17 @@ const Register = ({ setAlert, register, ...otherProps }) => {
 
 Register.propTypes = {
     setAlert: PropTypes.func.isRequired,
-    register: PropTypes.func.isRequired
+    register: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool
 };
+
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
 
 const mapDispatchToProps = (dispatch) => ({
     setAlert: (msg, alertType) => dispatch(setAlert(msg, alertType)),
     register: ({ name, email, password }) => dispatch(register({ name, email, password }))
 });
 
-export default connect(null, mapDispatchToProps)(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

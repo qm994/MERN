@@ -20,6 +20,14 @@ const authReducer = (state=INITIAL_STATE, action) => {
                 isAuthenticated: true,
                 loading: false
             };
+        case AuthActionTypes.LOGIN_SUCCESS:
+            localStorage.setItem('token', payload.token);
+            return {
+                ...state,
+                ...payload,
+                isAuthenticated: true,
+                loading: false
+            };
         // When user authenticated: update user
         case AuthActionTypes.USER_LOADED:
             return {
@@ -37,6 +45,15 @@ const authReducer = (state=INITIAL_STATE, action) => {
                 isAuthenticated: false,
                 loading: false
             };
+        // when login fail
+        case AuthActionTypes.LOGIN_FAIL:
+            localStorage.removeItem('token');
+            return {
+                ...state,
+                token: null,
+                isAuthenticated: false,
+                loading: false
+            }
         case AuthActionTypes.AUTH_ERROR:
             return {
                 ...state,
