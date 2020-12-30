@@ -3,29 +3,30 @@ import Landing from '../src/components/layout/Landing';
 import Navbar from '../src/components/layout/Navbar';
 import Login from '../src/components/auth/Login';
 import Register from '../src/components/auth/Register';
-
+import Alert from '../src/components/layout/Alert';
 import './App.css';
 
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Switch,
   Route,
 } from "react-router-dom";
 
 const App = () => {
   return (
-    <Router>
+    <BrowserRouter>
       <Fragment>
         <Navbar />
         <Route exact path='/' component={Landing} />
         <section className="container">
+          <Alert />
           <Switch>
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
           </Switch>
         </section>
       </Fragment>
-    </Router>
+    </BrowserRouter>
   );
 }
 
