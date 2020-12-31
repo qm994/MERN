@@ -1,14 +1,18 @@
 import React, { useEffect, Fragment } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../redux/profile/profile.actions';
 import { WithSpinner } from '../spinner/spinner';
+import DashboardActions from './DashboardActions';
 
+// Main dashboard component
 const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, loading} }) => {
 
     useEffect(() => {
         getCurrentProfile()
     }, []);
+    
     return loading && profile == null 
     ? <WithSpinner loading />
     :
@@ -18,8 +22,15 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, load
             <i class="fas fa-user"></i> Welcome {user && user.name}
         </p>
         { profile !== null
-            ? <Fragment>has</Fragment>
-            : <Fragment>not</Fragment> 
+            ? <Fragment>
+                <DashboardActions />
+            </Fragment>
+            : <Fragment>
+                <p>You havent set up the profile! Please add some info first</p>
+                <Link to='create-profile' className='btn btn-primary my-1'>
+                    Create Profile
+                </Link>
+            </Fragment> 
         };
     </Fragment>
 };
