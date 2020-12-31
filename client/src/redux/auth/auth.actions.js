@@ -68,7 +68,6 @@ export const register = ({ name, email, password }) => {
 };
 
 // Login user
-
 export const login = (email, password) => {
     return async (dispatch) => {
         const config = {
@@ -103,4 +102,15 @@ export const login = (email, password) => {
         }
     };
 };
+
+
+// Logout 
+
+export const logout = () => {
+    return dispatch => {
+        dispatch({
+            type: AuthActionTypes.LOG_OUT
+        });
+    }
+}
 
