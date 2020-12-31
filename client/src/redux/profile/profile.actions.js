@@ -20,8 +20,14 @@ export const getCurrentProfile = () => {
                     status: error.response.status
                 }
             });
-            dispatch(setAlert(error.response.data.msg, 'danger', 3000));
         }
     }
+};
+
+// Clear profile while logout
+export const clearProfile = () => {
+    return dispatch => dispatch({
+        type: ProfileActionTypes.CLEAR_PROFILE
+    });
 };
 

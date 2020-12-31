@@ -5,7 +5,7 @@ const INITIAL_STATE = {
     profiles: [],
     repos: [],
     loading: true,
-    cr: {}
+    error: {}
 };
 
 const profileReducer = (state=INITIAL_STATE, action) => {
@@ -21,6 +21,13 @@ const profileReducer = (state=INITIAL_STATE, action) => {
             return {
                 ...state,
                 error: payload,
+                loading: false
+            }
+        case ProfileActionTypes.CLEAR_PROFILE:
+            return {
+                ...state,
+                profile: null,
+                repos: [],
                 loading: false
             }
         default:

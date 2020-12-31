@@ -1,9 +1,11 @@
 import { AuthActionTypes } from "./auth.types";
-
+import { set } from "mongoose";
 import axios from 'axios';
 import { setAlert } from '../alert/alert.actions';
 import setAuthToken from '../../utils/setAuthToken';
-import { set } from "mongoose";
+
+import { clearProfile } from '../profile/profile.actions';
+
 
 
 // Action will be dispatched when: user login/register
@@ -105,9 +107,10 @@ export const login = (email, password) => {
 
 
 // Logout 
-
 export const logout = () => {
     return dispatch => {
+        // clearn profile before logout
+        dispatch(clearProfile());
         dispatch({
             type: AuthActionTypes.LOG_OUT
         });
