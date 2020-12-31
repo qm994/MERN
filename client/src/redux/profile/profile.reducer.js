@@ -30,6 +30,14 @@ const profileReducer = (state=INITIAL_STATE, action) => {
                 repos: [],
                 loading: false
             }
+        // add experience and education
+        case ProfileActionTypes.UPDATE_PROFILE_EXPERIENCE:
+        case ProfileActionTypes.UPDATE_PROFILE_EDUCATION:
+            return {
+                ...state,
+                profile: payload,
+                loading: false
+            }
         default:
             return state
     }

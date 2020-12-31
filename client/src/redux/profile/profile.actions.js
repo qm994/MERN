@@ -78,3 +78,91 @@ export const createProfile = (formData, history, edit = false) => {
     }
 };
 
+
+// Add experience
+const addExperience = (formData, history) => async (dispatch) => {
+    try {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        
+        const body = formData;
+        const res = await axios.put('api/profile/experience', body, config);
+
+        dispatch({
+            type: ProfileActionTypes.UPDATE_PROFILE_EXPERIENCE,
+            payload: res.data
+        });
+
+        dispatch(setAlert(
+            'Experience Added!',
+            'success',
+            3000
+        ));
+        history.push('/dashboard');
+
+    } catch (error) {
+        dispatch({
+            type: ProfileActionTypes.PROFILE_ERROR,
+            payload: {
+                msg: error.response.statusText,
+                status: error.response.status
+            }
+        });
+
+        // dispatch the backend validation errors
+        const errors = error.response.data.errors;
+        if(errors) {
+            errors.forEach(
+                error => dispatch(setAlert(error.msg, 'danger',  3000))
+            )
+        };
+    }
+};
+
+// Add education
+const addEducation = (formData, history) => async (dispatch) => {
+    try {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        
+        const body = formData;
+        const res = await axios.put('api/profile/education', body, config);
+
+        dispatch({
+            type: ProfileActionTypes.UPDATE_PROFILE_EDUCATION,
+            payload: res.data
+        });
+
+        dispatch(setAlert(
+            'Education Added!',
+            'success',
+            3000
+        ));
+        history.push('/dashboard');
+
+    } catch (error) {
+        dispatch({
+            type: ProfileActionTypes.PROFILE_ERROR,
+            payload: {
+                msg: error.response.statusText,
+                status: error.response.status
+            }
+        });
+
+        // dispatch the backend validation errors
+        const errors = error.response.data.errors;
+        if(errors) {
+            errors.forEach(
+                error => dispatch(setAlert(error.msg, 'danger',  3000))
+            )
+        };
+    }
+};
+
+
