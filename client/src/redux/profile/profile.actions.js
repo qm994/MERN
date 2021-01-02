@@ -75,7 +75,7 @@ export const getProfileById = (user_id) => {
 export const getGithubRepos = (username) => {
     return async (dispatch) => {
         try {
-            const res = await axios.get(`api/profile/github/${username}`);
+            const res = await axios.get(`/api/profile/github/${username}`);
             dispatch({
                 type: ProfileActionTypes.GET_REPOS,
                 payload: res.data
@@ -111,7 +111,7 @@ export const createProfile = (formData, history, edit = false) => {
             };
             //const body = JSON.stringify(formData);
             const body = formData;
-            const res = await axios.post('api/profile', body, config);
+            const res = await axios.post('/api/profile', body, config);
 
             dispatch({
                 type: ProfileActionTypes.GET_PROFILE,
@@ -157,7 +157,7 @@ export const addExperience = (formData, history) => {
             };
             
             const body = formData;
-            const res = await axios.put('api/profile/experience', body, config);
+            const res = await axios.put('/api/profile/experience', body, config);
     
             dispatch({
                 type: ProfileActionTypes.UPDATE_PROFILE_EXPERIENCE,
@@ -201,7 +201,7 @@ export const addEducation = (formData, history) => async (dispatch) => {
         };
         
         const body = formData;
-        const res = await axios.put('api/profile/education', body, config);
+        const res = await axios.put('/api/profile/education', body, config);
 
         dispatch({
             type: ProfileActionTypes.UPDATE_PROFILE_EDUCATION,
@@ -238,7 +238,7 @@ export const addEducation = (formData, history) => async (dispatch) => {
 
 export const deleteExperience = (exp_id) => async (dispatch) => {
     try {
-        const res = await axios.delete(`api/profile/experience/${exp_id}`);
+        const res = await axios.delete(`/api/profile/experience/${exp_id}`);
         dispatch({
             type: ProfileActionTypes.UPDATE_PROFILE_EXPERIENCE,
             payload: res.data
@@ -263,7 +263,7 @@ export const deleteExperience = (exp_id) => async (dispatch) => {
 
 export const deleteEducation = (edu_id) => async (dispatch) => {
     try {
-        const res = await axios.delete(`api/profile/education/${edu_id}`);
+        const res = await axios.delete(`/api/profile/education/${edu_id}`);
         dispatch({
             type: ProfileActionTypes.UPDATE_PROFILE_EDUCATION,
             payload: res.data
@@ -289,7 +289,7 @@ export const deleteEducation = (edu_id) => async (dispatch) => {
 export const deleteAccount = () => async (dispatch) => {
     if(window.confirm("Are u sure? This is can NOT be undone!")) {
         try {
-            const res = await axios.delete('api/profile');
+            const res = await axios.delete('/api/profile');
 
             dispatch({
                 type: ProfileActionTypes.CLEAR_PROFILE

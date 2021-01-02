@@ -27,7 +27,12 @@ const profileReducer = (state=INITIAL_STATE, action) => {
             return {
                 ...state,
                 error: payload,
-                loading: false
+                loading: false,
+                //found a security flaw in this app.
+                // If a guest user browses a dev profile and then registers, the browsed users
+                //profile data is still in the "profile" state and
+                // the newly registered user then sees and can edit the users info
+                profile: null
             }
         case ProfileActionTypes.CLEAR_PROFILE:
             return {
