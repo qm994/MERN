@@ -16,7 +16,7 @@ Profile(schema): https://github.com/qm994/MERN/blob/master/models/Profile.js#L3
 Post(schema): https://github.com/qm994/MERN/blob/master/models/Post.js#L5
 
 
-## Routes
+## Backend API 
 
 ### user
 (1) `api/user`: POST(register a new user, return `a new token`)
