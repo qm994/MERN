@@ -26,6 +26,71 @@ export const getCurrentProfile = () => {
     }
 };
 
+// Get all profiles
+export const getProfiles = () => {
+    return async (dispatch) => {
+        try {
+            const res = await axios.get('api/profile');
+            dispatch({
+                type: ProfileActionTypes.GET_PROFILES,
+                payload: res.data
+            });
+        } catch (error) {
+            console.log(error)
+            dispatch({
+                type: ProfileActionTypes.PROFILE_ERROR,
+                payload: {
+                    msg: error.response.statusText,
+                    status: error.response.status
+                }
+            });
+        }
+    }
+};
+
+// Get profile by id
+export const getProfileById = (user_id) => {
+    return async (dispatch) => {
+        try {
+            const res = await axios.get(`api/profile/user/${user_id}`);
+            dispatch({
+                type: ProfileActionTypes.GET_PROFILE,
+                payload: res.data
+            });
+        } catch (error) {
+            dispatch({
+                type: ProfileActionTypes.PROFILE_ERROR,
+                payload: {
+                    msg: error.response.statusText,
+                    status: error.response.status
+                }
+            });
+        }
+    }
+};
+
+// Get GITHUB repos
+export const getGithubRepos = (username) => {
+    return async (dispatch) => {
+        try {
+            const res = await axios.get(`api/profile/github/${username}`);
+            dispatch({
+                type: ProfileActionTypes.GET_REPOS,
+                payload: res.data
+            });
+        } catch (error) {
+            dispatch({
+                type: ProfileActionTypes.GET_REPOS_ERROR,
+                payload: {
+                    msg: error.response.statusText,
+                    status: error.response.status
+                }
+            });
+        }
+    }
+};
+
+
 // Clear profile while logout
 export const clearProfile = () => {
     return dispatch => dispatch({

@@ -17,6 +17,12 @@ const profileReducer = (state=INITIAL_STATE, action) => {
                 profile: payload,
                 loading: false
             };
+        case ProfileActionTypes.GET_PROFILES:
+            return {
+                ...state,
+                profiles: payload,
+                loading: false
+            };
         case ProfileActionTypes.PROFILE_ERROR:
             return {
                 ...state,
@@ -37,6 +43,21 @@ const profileReducer = (state=INITIAL_STATE, action) => {
                 ...state,
                 profile: payload,
                 loading: false
+            }
+
+        // Get repos and error
+        case ProfileActionTypes.GET_REPOS:
+            return {
+                ...state,
+                repos: payload,
+                loading: false
+            }
+        case ProfileActionTypes.GET_REPOS_ERROR:
+            return {
+                ...state,
+                repos: [],
+                loading: false,
+                error: payload
             }
         default:
             return state
