@@ -17,6 +17,8 @@ import EditProfile from '../src/components/profile-forms/EditProfile';
 import AddExperience from '../src/components/profile-forms/AddExperience';
 import AddEducation from '../src/components/profile-forms/AddEducation';
 import Profiles from './components/profiles/Profiles';
+import Profile from './components/profile/Profile';
+
 
 import PrivateRoute from './components/routing/PrivateRoute';
 import setAuthToken from './utils/setAuthToken';
@@ -30,7 +32,7 @@ if(localStorage.token) {
 const App = ({ user }) => {
   useEffect(() => {
     store.dispatch(loadUser())
-  },[]);
+  },[loadUser]);
 
   return (
     <BrowserRouter>
@@ -43,6 +45,7 @@ const App = ({ user }) => {
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
             <Route exact path='/profiles' component={Profiles} />
+            <Route exact path='/profile/:id' component={Profile} />
             <PrivateRoute exact path='/dashboard' component={Dashboard} />
             <PrivateRoute exact path='/create-profile' component={CreateProfile} />
             <PrivateRoute exact path='/edit-profile' component={EditProfile} />
@@ -59,4 +62,4 @@ const mapStateToProps = (state) => ({
   user: state.auth.user
 })
 
-export default connect()(App);
+export default connect(mapStateToProps, null)(App);

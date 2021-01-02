@@ -3,6 +3,7 @@ import axios from 'axios';
 import { setAlert } from '../alert/alert.actions';
 import { body } from 'express-validator';
 import { set } from 'mongoose';
+
 //import setAuthToken from '../../utils/setAuthToken';
 
 // Get current user profile
@@ -52,7 +53,8 @@ export const getProfiles = () => {
 export const getProfileById = (user_id) => {
     return async (dispatch) => {
         try {
-            const res = await axios.get(`api/profile/user/${user_id}`);
+            const res = await axios.get(`/api/profile/user/${user_id}`);
+        
             dispatch({
                 type: ProfileActionTypes.GET_PROFILE,
                 payload: res.data
