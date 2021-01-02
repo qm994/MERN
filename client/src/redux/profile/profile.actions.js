@@ -167,4 +167,87 @@ export const addEducation = (formData, history) => async (dispatch) => {
     }
 };
 
+//Delete experience
+
+export const deleteExperience = (exp_id) => async (dispatch) => {
+    try {
+        const res = await axios.delete(`api/profile/experience/${exp_id}`);
+        dispatch({
+            type: ProfileActionTypes.UPDATE_PROFILE_EXPERIENCE,
+            payload: res.data
+        });
+        dispatch(setAlert(
+            'Experience removed!',
+            'success',
+            3000
+        ));
+    } catch (error) {
+        dispatch({
+            type: ProfileActionTypes.PROFILE_ERROR,
+            payload: {
+                msg: error.response.statusText,
+                status: error.response.status
+            }
+        });
+    }
+};
+
+//Delete education
+
+export const deleteEducation = (edu_id) => async (dispatch) => {
+    try {
+        const res = await axios.delete(`api/profile/education/${edu_id}`);
+        dispatch({
+            type: ProfileActionTypes.UPDATE_PROFILE_EDUCATION,
+            payload: res.data
+        });
+        dispatch(setAlert(
+            'Education removed!',
+            'success',
+            3000
+        ));
+    } catch (error) {
+        dispatch({
+            type: ProfileActionTypes.PROFILE_ERROR,
+            payload: {
+                msg: error.response.statusText,
+                status: error.response.status
+            }
+        });
+    }
+};
+
+//Delete account(user) and profile
+
+export const deleteAccount = () => async (dispatch) => {
+    if(window.confirm("Are u sure? This is can NOT be undone!")) {
+        try {
+            const res = await axios.delete('api/profile');
+
+            dispatch({
+                type: ProfileActionTypes.CLEAR_PROFILE
+            });
+
+            dispatch({
+                type: ProfileActionTypes.DELETE_ACCOUNT
+            });
+            dispatch(setAlert(
+                'Ur account has removed!',
+                'success',
+                3000
+            ));
+        } catch (error) {
+            dispatch({
+                type: ProfileActionTypes.PROFILE_ERROR,
+                payload: {
+                    msg: error.response.statusText,
+                    status: error.response.status
+                }
+            });
+        }
+    }
+};
+
+
+
 

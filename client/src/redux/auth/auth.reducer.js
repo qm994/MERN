@@ -1,5 +1,5 @@
 import { AuthActionTypes } from "./auth.types";
-
+import { ProfileActionTypes } from '../profile/profile.types';
 // inital values used when app initialied
 const INITIAL_STATE = {
     token: localStorage.getItem('token'),
@@ -63,6 +63,7 @@ const authReducer = (state=INITIAL_STATE, action) => {
             }
         // logout user and clean token
         case AuthActionTypes.LOG_OUT:
+        case ProfileActionTypes.DELETE_ACCOUNT:
             localStorage.removeItem('token');
             return {
                 ...state,
