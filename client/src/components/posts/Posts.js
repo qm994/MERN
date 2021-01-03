@@ -2,11 +2,9 @@ import React, { useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-
 import { getPosts } from '../../redux/post/post.actions';
 import { WithSpinner } from '../spinner/spinner';
-
-
+import PostItem from './PostItem';
 
 const Posts = ({
     getPosts,
@@ -20,9 +18,19 @@ const Posts = ({
     }, [getPosts]);
 
     return (
-        <div>
-            
-        </div>
+        loading
+        ? <WithSpinner loading={loading} />
+        : <Fragment>
+            <h1 class="large text-primary">Posts</h1>
+            <p class="lead">
+                <i class="fas fa-user"></i>Welcome to the community!
+            </p>
+            <div class="posts">
+                {posts.map(post => (
+                    <PostItem key={post._id} post={post} />
+                ))}
+            </div>
+        </Fragment>
     )
 }
 

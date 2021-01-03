@@ -139,7 +139,7 @@ router.put(
                 return res.status(403).json({
                     msg: "Post already liked!"
                 })
-            } ;
+            };
             post.likes.unshift({ user: req.user.id });
             await post.save();
             return res.status(200).json(post.likes);
