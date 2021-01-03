@@ -1,0 +1,5 @@
+{	
+    "mongoURI": "mongodb+srv://qingyuan:zhang199711@devconnector.z9fyl.mongodb.net/MERN_prod?retryWrites=true&w=majority",	
+    "jwtsecret": "mysecrettoken",
+    "githubToken": "a36b28d5dee50f846f690cb0fc7fb14951cced15"	
+}
