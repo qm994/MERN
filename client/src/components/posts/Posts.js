@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { getPosts } from '../../redux/post/post.actions';
 import { WithSpinner } from '../spinner/spinner';
 import PostItem from './PostItem';
+import PostForm from './PostForm';
+
 
 const Posts = ({
     getPosts,
@@ -25,6 +27,7 @@ const Posts = ({
             <p class="lead">
                 <i class="fas fa-user"></i>Welcome to the community!
             </p>
+            <PostForm />
             <div class="posts">
                 {posts.map(post => (
                     <PostItem key={post._id} post={post} />
