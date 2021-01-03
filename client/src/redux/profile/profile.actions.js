@@ -6,7 +6,7 @@ import { setAlert } from '../alert/alert.actions';
 export const getCurrentProfile = () => {
     return async (dispatch) => {
         try {
-            const res = await axios.get('api/profile/me');
+            const res = await axios.get('/api/profile/me');
             dispatch({
                 type: ProfileActionTypes.GET_PROFILE,
                 payload: res.data
@@ -27,7 +27,7 @@ export const getCurrentProfile = () => {
 export const getProfiles = () => {
     return async (dispatch) => {
         try {
-            const res = await axios.get('api/profile');
+            const res = await axios.get('/api/profile');
             dispatch({
                 type: ProfileActionTypes.GET_PROFILES,
                 payload: res.data

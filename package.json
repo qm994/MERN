@@ -8,7 +8,8 @@
     "server": "nodemon server.js",
     "start": "node server",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "Qingyuan",
   "license": "MIT",
@@ -20,6 +21,7 @@
     "gravatar": "^1.8.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.8",
+    "redux-logger": "^3.0.6",
     "request": "^2.88.2"
   },
   "devDependencies": {

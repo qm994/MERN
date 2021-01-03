@@ -20,7 +20,6 @@ const Profile = ({
     useEffect(() => {
         getProfileById(match.params.id)
     }, [getProfileById, match.params.id]);
-
     return (
         <Fragment>
             {
@@ -29,7 +28,7 @@ const Profile = ({
                     : <Fragment>
                         <Link to='/profiles' className="btn btn-light">
                             Back To Profiles
-                    </Link>
+                        </Link>
                         {
                             auth.isAuthenticated && !auth.loading && auth.user._id === match.params.id
                             && (<Link to='/edit-profile' className='btn btn-dark'>
