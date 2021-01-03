@@ -25,3 +25,51 @@ export const getPosts = () => {
         }
     }
 };
+
+// Add a like
+export const addLike = (postId) => {
+    return async (dispatch) => {
+        try {
+            const res = await axios.put(`/api/posts/like/${postId}`);
+            dispatch({
+                type: postActionTypes.UPDATE_LIKES,
+                payload: { id: postId, likes: res.data }
+            });
+
+        } catch (error) {
+            dispatch({
+                type: postActionTypes.POST_ERROR,
+                payload: {
+                    msg: error.response.statusText,
+                    status: error.response.status
+                }
+            });
+        }
+    }
+};
+
+// Remove a like
+export const removeLike = (postId) => {
+    return async (dispatch) => {
+        try {
+            const res = await axios.put(`/api/posts/unlike/${postId}`);
+            dispatch({
+                type: postActionTypes.UPDATE_LIKES,
+                payload: { id: postId, likes: res.data }
+            });
+
+        } catch (error) {
+            dispatch({
+                type: postActionTypes.POST_ERROR,
+                payload: {
+                    msg: error.response.statusText,
+                    status: error.response.status
+                }
+            });
+        }
+    }
+};
+
+
+
+
