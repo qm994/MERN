@@ -1,10 +1,6 @@
 import { ProfileActionTypes } from './profile.types';
 import axios from 'axios';
 import { setAlert } from '../alert/alert.actions';
-import { body } from 'express-validator';
-import { set } from 'mongoose';
-
-//import setAuthToken from '../../utils/setAuthToken';
 
 // Get current user profile
 export const getCurrentProfile = () => {
